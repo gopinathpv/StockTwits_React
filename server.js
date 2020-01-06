@@ -7,7 +7,7 @@ const app = express();
 
 
 
-app.post("/data", cors(),function(req, res) {
+app.post("/data",function(req, res) {
   var inputdata = req.body.value;
   var jsondata;
   console.log("data",inputdata)
