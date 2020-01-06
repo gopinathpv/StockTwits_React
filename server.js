@@ -1,6 +1,8 @@
 const express = require('express');
-var fetch = require("node-fetch");
-var bodyParser = require("body-parser");
+const fetch = require("node-fetch");
+const bodyParser = require("body-parser");
+const cors = require('cors')
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -9,12 +11,6 @@ const port = process.env.PORT || 5000;
 
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));
-
-// create a GET route
-app.get('/', (req, res) => {
-  res.send('YOUR EXPRESS BACKEND IS CONNECTED TO REACT' );
-});
-
 
 app.post("/data", function(req, res) {
   var inputdata = req.body.value;
@@ -45,6 +41,7 @@ app.use((err,req,res,next)=>{
   })
 })
 
+app.use(cors());
 
 if(process.env.NODE_ENV === "production"){
   app.use(express.static('client/build'));
