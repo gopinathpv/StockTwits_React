@@ -1,0 +1,55 @@
+$smoke:whitesmoke;
+$backg:#1DA1F2;
+$conbg:white;
+
+.search{
+    padding-top:10px;
+    background-color: $smoke;
+    position:sticky;
+    top:50px;
+    z-index: 100;
+    white-space: nowrap;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.search div{
+    display: inline-block;
+}
+
+
+.searchbox{
+    width: 200px;
+    height:30px;
+}
+
+.add{
+    margin-bottom: 7px;
+    height: 30px;
+    background-color:$backg;
+    border-style: none;
+    color:$smoke
+}
+
+.cardcon{
+    padding-top: 5px;
+    float:left;
+    background-color:$conbg;
+}
+
+.cardcol{
+    margin-bottom: 5px;
+}
+
+.listdiv{
+    padding-top:5px;
+    border-left-width: thin;
+    border-left-style: solid ;
+    border-left-color:$backg;
+    position: sticky;
+    top:100px;
+}
+.searchdiv{
+    font-family: 'Vollkorn', serif;
+}
