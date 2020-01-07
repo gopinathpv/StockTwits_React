@@ -38,7 +38,7 @@ render(){
                         <ListGroup.Item  
                         className="listitem" 
                         onClick={()=> {this.props.deleteItems(item)}}>
-                        {item.value} 
+                        {item.value} ({item.tweetlen})
                         </ListGroup.Item>
                     </ListGroup>
       </div>

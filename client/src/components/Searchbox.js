@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-
 import axios from "axios";
 import Layout from "./Layout";
 
+
 import '../sass/list.scss'
 import '../sass/searchbox.scss'
+
 
 class Search extends Component {
   constructor(props) {
@@ -14,17 +15,35 @@ class Search extends Component {
       symbols: [],
       tweetsbody:[],
       searchres:'',
+      iszeroinput:false,
+      isnotexist: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+ 
+
   handleChange(event) {
     const searchTerm = event.target.value;
     this.setState({ value: searchTerm.toLowerCase()});
+    
+  }
+  hans()
+  {
+    return "Enter Input"
   }
 
   handleSubmit(event) {
+
+    if(this.state.value === ''){
+      console.log("empty string")
+      this.setState({
+          iszeroinput:true
+      })
+    }
+
+
     const key= this.state.value.toUpperCase();
     const sy= []
     for(let i=0;i<this.state.symbols.length;i++){
@@ -40,9 +59,13 @@ class Search extends Component {
           }
           }).then(response => {
             const tweet = response.data.tweetsdata;
+            if(tweet.response.status === 404){
+              this.setState({isnotexist:true})
+            }
             if(tweet.response.status === 200){
                     const  newsymbol = {
                       value:this.state.value.toUpperCase(),
+                      tweetlen:tweet.messages.length
                 };
                 this.state.symbols.push(newsymbol)
                 for(let i= 0; i<tweet.messages.length;i++){
@@ -55,7 +78,7 @@ class Search extends Component {
                 this.state.tweetsbody.push(newsymboltweets)
                 }
               }
-            this.setState({value:"",searchres:tweet.response.status})
+            this.setState({value:"",searchres:tweet.response.status,iszeroinput:false,isnotexist:false})
         });
       }
     event.preventDefault();
@@ -66,12 +89,16 @@ class Search extends Component {
     const symbols=this.state.symbols.filter(symb => symb.value !== item.value)
     this.setState({tweetsbody,symbols})
   }
-
+ 
+  
   render() {
       const {
         searchres,
+        iszeroinput
       } = this.state;
-
+   
+     
+     
     return (
       <div className="searchdiv">
           <form  onSubmit={this.handleSubmit} className="search">
@@ -88,9 +115,17 @@ class Search extends Component {
                       className="add" 
                       type="submit"> 
                       Add Symbol
+                     
                       </button>
+
                   </div>
           </form> 
+
+          {iszeroinput &&(
+            <div className="input"> {this.hans()}</div>
+          )}
+          
+
            {searchres === 200 && (
             <Layout tweet={this.state.tweetsbody} symss= {this.state.symbols} deleteItems={this.deleteItems}/>
            )}
