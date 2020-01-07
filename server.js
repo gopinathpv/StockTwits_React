@@ -4,12 +4,10 @@ const bodyParser = require("body-parser");
 const app = express();
 const cors = require('cors')
 const path = require('path')
-const morgan = require('morgan')
 const port = process.env.PORT || 5000;
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(morgan('dev'))
 app.listen(port, () => console.log(`Listening on port ${port}`));
 app.use(cors())
 
