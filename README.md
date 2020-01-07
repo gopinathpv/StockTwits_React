@@ -1,6 +1,6 @@
 
 
-![](images/stock.png)
+![](Images/stock.png)
 
  https://w2323.herokuapp.com/
 
