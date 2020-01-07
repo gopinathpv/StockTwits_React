@@ -1,4 +1,9 @@
 
+
+![](images/stock.png)
+
+ https://w2323.herokuapp.com/
+
 # Technologies used 
   - React.js   
   - React-Dom
