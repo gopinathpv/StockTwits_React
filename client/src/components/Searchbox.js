@@ -33,7 +33,7 @@ class Search extends Component {
 
     if(this.state.value.length !== 0 && !sy.includes(key)){
           axios({
-          url: "/data",
+          url: "/api/data",
           method: "post",
           data: {
             value: this.state.value
