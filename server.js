@@ -13,8 +13,14 @@ app.use(cors())
 
 
 app.get('/', (req, res) => {
-  res.send('YOUR EXPRESS BACKEND IS CONNECTED TO REACT' );
-});
+  if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/build'));
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname,'client', 'build', 'index.html'))
+    })
+  }
+  
+})
 
 
 app.post("/data", function(req, res) {
@@ -32,11 +38,4 @@ app.post("/data", function(req, res) {
 });
 
 
-if(process.env.NODE_ENV === 'production'){
-  app.use(express.static('client/build'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname,'client', 'build', 'index.html'))
-  })
-  
-}
 
