@@ -54,7 +54,11 @@ $conbg:white;
 .input {
 padding-top:3px;
 font-size: x-small;
-color: red;
+color:black;
 display:flex;
 justify-content: center;
+}
+
+.sta,::after,::before{
+    box-sizing: border-box;
 }

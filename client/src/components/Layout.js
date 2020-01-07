@@ -48,7 +48,7 @@ render(){
     return(
      <Container fluid className="conta">
              <Row>
-                  <Col sm="9" className="tweecol" >
+                  <Col xs="9" className="tweecol" >
                     <div className="containerdiv">
                       <Container className="cardcon">
                         <Row>
@@ -57,7 +57,7 @@ render(){
                       </Container>
                     </div>
                   </Col>
-                <Col sm="3" >
+                <Col xs="3" >
                   <div className="listdiv">
                     {syms}
                   </div>

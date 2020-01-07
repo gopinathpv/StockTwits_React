@@ -15,14 +15,11 @@ class Search extends Component {
       symbols: [],
       tweetsbody:[],
       searchres:'',
-      iszeroinput:false,
-      isnotexist: false
+      isnotexist: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
- 
 
   handleChange(event) {
     const searchTerm = event.target.value;
@@ -31,25 +28,22 @@ class Search extends Component {
   }
   hans()
   {
-    return "Enter Input"
+     if(this.state.isnotexist === true){
+      return "Enter valid input"
+    }
+    else {
+      return null
+    }
   }
 
   handleSubmit(event) {
-
-    if(this.state.value === ''){
-      console.log("empty string")
-      this.setState({
-          iszeroinput:true
-      })
-    }
-
-
+  
     const key= this.state.value.toUpperCase();
     const sy= []
     for(let i=0;i<this.state.symbols.length;i++){
       sy.push(this.state.symbols[i].value)
     }
-
+  
     if(this.state.value.length !== 0 && !sy.includes(key)){
           axios({
           url: "/api/data",
@@ -60,13 +54,18 @@ class Search extends Component {
           }).then(response => {
             const tweet = response.data.tweetsdata;
             if(tweet.response.status === 404){
-              this.setState({isnotexist:true})
+              this.setState({
+                isnotexist:true
+              })
             }
             if(tweet.response.status === 200){
                     const  newsymbol = {
                       value:this.state.value.toUpperCase(),
                       tweetlen:tweet.messages.length
                 };
+                this.setState({
+                  isnotexist:false
+                })
                 this.state.symbols.push(newsymbol)
                 for(let i= 0; i<tweet.messages.length;i++){
                     const newsymboltweets= {
@@ -78,7 +77,7 @@ class Search extends Component {
                 this.state.tweetsbody.push(newsymboltweets)
                 }
               }
-            this.setState({value:"",searchres:tweet.response.status,iszeroinput:false,isnotexist:false})
+            this.setState({value:"",searchres:tweet.response.status})
         });
       }
     event.preventDefault();
@@ -90,14 +89,11 @@ class Search extends Component {
     this.setState({tweetsbody,symbols})
   }
  
-  
   render() {
       const {
         searchres,
-        iszeroinput
+        isnotexist
       } = this.state;
-   
-     
      
     return (
       <div className="searchdiv">
@@ -115,22 +111,22 @@ class Search extends Component {
                       className="add" 
                       type="submit"> 
                       Add Symbol
-                     
                       </button>
-
                   </div>
           </form> 
 
-          {iszeroinput &&(
+          {isnotexist &&(
             <div className="input"> {this.hans()}</div>
           )}
           
 
-           {searchres === 200 && (
+           {searchres === 200 &&  (
+             <div className="sta">
             <Layout tweet={this.state.tweetsbody} symss= {this.state.symbols} deleteItems={this.deleteItems}/>
+            </div>
            )}
             {searchres === 404 && (
-            <Layout tweet={this.state.tweetsbody} symss= {this.state.symbols}/>
+            <Layout tweet={this.state.tweetsbody} symss= {this.state.symbols} deleteItems={this.deleteItems}/>
            )}
       </div>
     );
