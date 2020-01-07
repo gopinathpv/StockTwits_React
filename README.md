@@ -26,3 +26,4 @@
  1. Add Symbol to the list by searching the stock symbol in search Bar.
  2. On Adding the application will show you a tweets related to the symbol.
  3. you can delete by clicking on the symbol on right.On hover it will show you the red color background.
+ 
